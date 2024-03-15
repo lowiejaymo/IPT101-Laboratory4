@@ -56,7 +56,7 @@ if (isset($_POST['change_email_password'])) {
                 mysqli_query($conn, $updateSql2);
                 
                 $_SESSION['email'] = $newEmail;
-                header("Location: ../profile.php?requestcodesuccess=Email updated successfully");
+                header("Location: ../profile.php?sencodesuccess=Email updated successfully");
                 exit();
             } else {
                 header("Location: ../profile.php?requestcodeerror=Failed to update email");
