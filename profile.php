@@ -2,7 +2,7 @@
 session_start();
 
 if (
-  isset($_SESSION['user_id'])
+  isset ($_SESSION['user_id'])
 ) {
   ?>
   <!DOCTYPE html>
@@ -88,13 +88,13 @@ if (
               </div>
 
 
-              <?php if (isset($_GET['error'])) { ?>
+              <?php if (isset ($_GET['error'])) { ?>
                 <div class="alert alert-danger">
                   <?php echo $_GET['error']; ?>
                 </div>
               <?php } ?>
 
-              <?php if (isset($_GET['success'])) { ?>
+              <?php if (isset ($_GET['success'])) { ?>
                 <div class="alert alert-success">
                   <?php echo $_GET['success']; ?>
                 </div>
@@ -198,22 +198,22 @@ if (
                     <p class="text-muted">
                       <?php
                       $address_parts = array();
-                      if (!empty($_SESSION['street_building_house'])) {
+                      if (!empty ($_SESSION['street_building_house'])) {
                         $address_parts[] = $_SESSION['street_building_house'];
                       }
-                      if (!empty($_SESSION['Barangay'])) {
+                      if (!empty ($_SESSION['Barangay'])) {
                         $address_parts[] = $_SESSION['Barangay'];
                       }
-                      if (!empty($_SESSION['City'])) {
+                      if (!empty ($_SESSION['City'])) {
                         $address_parts[] = $_SESSION['City'];
                       }
-                      if (!empty($_SESSION['Province'])) {
+                      if (!empty ($_SESSION['Province'])) {
                         $address_parts[] = $_SESSION['Province'];
                       }
-                      if (!empty($_SESSION['Region'])) {
+                      if (!empty ($_SESSION['Region'])) {
                         $address_parts[] = $_SESSION['Region'];
                       }
-                      if (!empty($_SESSION['Postal_Code'])) {
+                      if (!empty ($_SESSION['Postal_Code'])) {
                         $address_parts[] = $_SESSION['Postal_Code'];
                       }
 
@@ -489,12 +489,12 @@ if (
 
                             <form class="form-horizontal" action="indexes/profile-be.php" method="post">
 
-                              <?php if (isset($_GET['updateprofileerror'])) { ?>
+                              <?php if (isset ($_GET['updateprofileerror'])) { ?>
                                 <div class="alert alert-danger">
                                   <?php echo $_GET['updateprofileerror']; ?>
                                 </div>
                               <?php } ?>
-                              <?php if (isset($_GET['updateprofilesuccess'])) { ?>
+                              <?php if (isset ($_GET['updateprofilesuccess'])) { ?>
                                 <div class="alert alert-success">
                                   <?php echo $_GET['updateprofilesuccess']; ?>
                                 </div>
@@ -504,19 +504,19 @@ if (
                                   <!-- Last name input -->
                                   <label for="Fullname" class="fw-bold">Last Name</label>
                                   <input type="text" class="form-control" name="lastname" placeholder="Last Name*"
-                                    value="<?php echo isset($_SESSION['Lastname']) ? $_SESSION['Lastname'] : ''; ?>">
+                                    value="<?php echo isset ($_SESSION['Lastname']) ? $_SESSION['Lastname'] : ''; ?>">
                                 </div>
                                 <div class="col-md-4">
                                   <!--  First anme Input -->
                                   <label for="Fullname" class="fw-bold">First Name</label>
                                   <input type="text" class="form-control" name="firstname" placeholder="First Name*"
-                                    value="<?php echo isset($_SESSION['First_name']) ? $_SESSION['First_name'] : ''; ?>">
+                                    value="<?php echo isset ($_SESSION['First_name']) ? $_SESSION['First_name'] : ''; ?>">
                                 </div>
                                 <div class="col-md-4">
                                   <!-- Middle name Input -->
                                   <label for="Fullname" class="fw-bold">Middle Name</label>
                                   <input type="text" class="form-control" name="middlename" placeholder="Middle Name"
-                                    value="<?php echo isset($_SESSION['Middle_name']) ? $_SESSION['Middle_name'] : ''; ?>">
+                                    value="<?php echo isset ($_SESSION['Middle_name']) ? $_SESSION['Middle_name'] : ''; ?>">
                                 </div>
                               </div>
 
@@ -524,7 +524,7 @@ if (
                                 <!-- Username Input -->
                                 <label for="User Name" class="fw-bold">User Name</label>
                                 <input type="text" class="form-control" name="uname" placeholder="User Name*"
-                                  value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?>">
+                                  value="<?php echo isset ($_SESSION['username']) ? $_SESSION['username'] : ''; ?>">
                               </div>
 
 
@@ -536,7 +536,7 @@ if (
                                   <input type="text" class="form-control" id="inputName" name="phone_number"
                                     pattern="09[0-9]{9}" title="Phone number must start with 09 and have 11 digits"
                                     placeholder="09123456789*"
-                                    value="<?php echo isset($_SESSION['phone_number']) && $_SESSION['phone_number'] !== '0' ? $_SESSION['phone_number'] : ''; ?>">
+                                    value="<?php echo isset ($_SESSION['phone_number']) && $_SESSION['phone_number'] !== '0' ? $_SESSION['phone_number'] : ''; ?>">
                                 </div>
                               </div>
                               <!-- birthdate input -->
@@ -544,7 +544,7 @@ if (
                                 <label for="birthday" class="col-sm-2 col-form-label">Birthdate</label>
                                 <div class="col-sm-10" style="display: flex; gap: 10px;">
                                   <input type="date" class="form-control" name="birthday" id="birthday"
-                                    value="<?php echo isset($_SESSION['Birthday']) ? $_SESSION['Birthday'] : ''; ?>">
+                                    value="<?php echo isset ($_SESSION['Birthday']) ? $_SESSION['Birthday'] : ''; ?>">
                                 </div>
                               </div>
 
@@ -555,10 +555,10 @@ if (
                                   <select class="form-select form-select-lg mb-3 btn border border-light" name='gender'
                                     aria-label=".form-select-lg example">
                                     <option value="" selected disabled>Gender*</option>
-                                    <option value="Prefer not to say" <?php echo isset($_SESSION['gender']) && $_SESSION['gender'] == 'Prefer not to say' ? 'selected' : ''; ?>>Prefer not to say
+                                    <option value="Prefer not to say" <?php echo isset ($_SESSION['gender']) && $_SESSION['gender'] == 'Prefer not to say' ? 'selected' : ''; ?>>Prefer not to say
                                     </option>
-                                    <option value="Male" <?php echo isset($_SESSION['gender']) && $_SESSION['gender'] == 'Male' ? 'selected' : ''; ?>>Male</option>
-                                    <option value="Female" <?php echo isset($_SESSION['gender']) && $_SESSION['gender'] == 'Female' ? 'selected' : ''; ?>>Female</option>
+                                    <option value="Male" <?php echo isset ($_SESSION['gender']) && $_SESSION['gender'] == 'Male' ? 'selected' : ''; ?>>Male</option>
+                                    <option value="Female" <?php echo isset ($_SESSION['gender']) && $_SESSION['gender'] == 'Female' ? 'selected' : ''; ?>>Female</option>
                                   </select>
                                 </div>
                               </div>
@@ -570,26 +570,26 @@ if (
                                 <div class="col-md-4 dropdown">
                                   <input type="text" class="form-control" name="street_building_house"
                                     placeholder="Street Name, Building, House No.*"
-                                    value="<?php echo isset($_SESSION['street_building_house']) ? $_SESSION['street_building_house'] : ''; ?>">
+                                    value="<?php echo isset ($_SESSION['street_building_house']) ? $_SESSION['street_building_house'] : ''; ?>">
                                 </div>
                                 <div class="col-md-3">
                                   <input type="text" class="form-control" name="barangay" placeholder="Barangay*"
-                                    value="<?php echo isset($_SESSION['Barangay']) ? $_SESSION['Barangay'] : ''; ?>">
+                                    value="<?php echo isset ($_SESSION['Barangay']) ? $_SESSION['Barangay'] : ''; ?>">
                                 </div>
                                 <div class="col-md-3">
                                   <input type="text" class="form-control" name="city" placeholder="City*"
-                                    value="<?php echo isset($_SESSION['City']) ? $_SESSION['City'] : ''; ?>">
+                                    value="<?php echo isset ($_SESSION['City']) ? $_SESSION['City'] : ''; ?>">
                                 </div>
                               </div>
                               <div class="form-group row mb-3 ">
                                 <label for="address2" class="col-sm-2 col-form-label"></label>
                                 <div class="col-md-3">
                                   <input type="text" class="form-control" name="province" placeholder="Province*"
-                                    value="<?php echo isset($_SESSION['Province']) ? $_SESSION['Province'] : ''; ?>">
+                                    value="<?php echo isset ($_SESSION['Province']) ? $_SESSION['Province'] : ''; ?>">
                                 </div>
                                 <div class="col-md-3">
                                   <input type="text" class="form-control" name="region" placeholder="Region*"
-                                    value="<?php echo isset($_SESSION['Region']) ? $_SESSION['Region'] : ''; ?>">
+                                    value="<?php echo isset ($_SESSION['Region']) ? $_SESSION['Region'] : ''; ?>">
                                 </div>
                                 <div class="col-md-2">
                                   <input type="text" class="form-control" name="postal_code" placeholder="Postal Code*"
@@ -605,7 +605,7 @@ if (
                                 <div class="col-sm-10">
                                   <input type="text" class="form-control" id="inputName" name="occupation"
                                     placeholder="Occupation"
-                                    value="<?php echo isset($_SESSION['Occupation']) ? $_SESSION['Occupation'] : ''; ?>">
+                                    value="<?php echo isset ($_SESSION['Occupation']) ? $_SESSION['Occupation'] : ''; ?>">
                                 </div>
                               </div>
 
@@ -615,7 +615,7 @@ if (
                                 <div class="col-sm-10">
                                   <input type="text" class="form-control" id="inputName" name="education"
                                     placeholder="Education"
-                                    value="<?php echo isset($_SESSION['Education']) ? $_SESSION['Education'] : ''; ?>">
+                                    value="<?php echo isset ($_SESSION['Education']) ? $_SESSION['Education'] : ''; ?>">
                                 </div>
                               </div>
 
@@ -625,7 +625,7 @@ if (
                                 <div class="col-sm-10">
                                   <input type="text" class="form-control" id="inputName" name="skills"
                                     placeholder="Skills"
-                                    value="<?php echo isset($_SESSION['Skills']) ? $_SESSION['Skills'] : ''; ?>">
+                                    value="<?php echo isset ($_SESSION['Skills']) ? $_SESSION['Skills'] : ''; ?>">
                                 </div>
                               </div>
 
@@ -634,20 +634,10 @@ if (
                                 <label for="inputNotes" class="col-sm-2 col-form-label">Notes</label>
                                 <div class="col-sm-10">
                                   <textarea class="form-control" id="inputNotes" rows="3" name="notes"
-                                    placeholder="Note up to 1,000 characters only"><?php echo isset($_SESSION['Notes']) ? $_SESSION['Notes'] : ''; ?></textarea>
+                                    placeholder="Note up to 1,000 characters only"><?php echo isset ($_SESSION['Notes']) ? $_SESSION['Notes'] : ''; ?></textarea>
                                 </div>
                               </div>
-                              <div class="form-group row">
-                                <div class="offset-sm-2 col-sm-10">
-                                  <div class="checkbox">
-                                    <label>
-                                      <input type="checkbox" required='required'> I agree to the <a href="404.php">terms
-                                        and
-                                        conditions</a>
-                                    </label>
-                                  </div>
-                                </div>
-                              </div>
+
                               <!-- password input -->
                               <div class="form-group row">
                                 <label for="inputName" class="col-sm-2 col-form-label">Password</label>
@@ -657,6 +647,15 @@ if (
                                   <p class="text-muted">To verify your identity, please enter your password to
                                     successfully
                                     update your profile.</p>
+                                </div>
+                              </div>
+                              <!-- terms and condition -->
+                              <div class="mb-3">
+                                <div class="checkbox">
+                                  <label for="agreeTerms">
+                                    I agree to the <a href="#" data-toggle="modal" data-target="#profiletermsModal">terms
+                                      and conditions</a>
+                                  </label>
                                 </div>
                               </div>
                               <div class="form-group row">
@@ -699,12 +698,12 @@ if (
 
 
                             <form style="width: 100%" action="indexes/send_request_code.php" method="post">
-                              <?php if (isset($_GET['sencodeerror'])) { ?>
+                              <?php if (isset ($_GET['sencodeerror'])) { ?>
                                 <div class="alert alert-danger">
                                   <?php echo $_GET['sencodeerror']; ?>
                                 </div>
                               <?php } ?>
-                              <?php if (isset($_GET['sencodesuccess'])) { ?>
+                              <?php if (isset ($_GET['sencodesuccess'])) { ?>
                                 <div class="alert alert-success">
                                   <?php echo $_GET['sencodesuccess']; ?>
                                 </div>
@@ -714,14 +713,14 @@ if (
                                 <label for="currentEmail" class="fw-bold">Current Email Address</label>
                                 <input type="text" class="form-control" id="inputName" name="current_email"
                                   placeholder="Current Email Address" style="font-weight: bold;"
-                                  value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>" disabled>
+                                  value="<?php echo isset ($_SESSION['email']) ? $_SESSION['email'] : ''; ?>" disabled>
                               </div>
 
                               <div class="mb-3">
                                 <!-- New email address input -->
                                 <label for="newEmail" class="fw-bold">New Email Address</label>
                                 <div class="input-group">
-                                  <?php if (isset($_GET['new_email_data'])) { ?>
+                                  <?php if (isset ($_GET['new_email_data'])) { ?>
                                     <input type="email" class="form-control col-9 me-2" name="new_email"
                                       placeholder="New Email Address*" required
                                       value="<?php echo $_GET['new_email_data']; ?>">
@@ -740,12 +739,12 @@ if (
 
                             <form style="width: 100%" action="indexes/changemail-be.php" method="post">
 
-                              <?php if (isset($_GET['requestcodeerror'])) { ?>
+                              <?php if (isset ($_GET['requestcodeerror'])) { ?>
                                 <div class="alert alert-danger">
                                   <?php echo $_GET['requestcodeerror']; ?>
                                 </div>
                               <?php } ?>
-                              <?php if (isset($_GET['requestcodesuccess'])) { ?>
+                              <?php if (isset ($_GET['requestcodesuccess'])) { ?>
                                 <div class="alert alert-success">
                                   <?php echo $_GET['requestcodesuccess']; ?>
                                 </div>
@@ -753,7 +752,7 @@ if (
                               <div class="mb-3">
                                 <!-- Verification code input -->
                                 <label for="requestCode" class="fw-bold">Request Code</label>
-                                <?php if (isset($_GET['request_code_data'])) { ?>
+                                <?php if (isset ($_GET['request_code_data'])) { ?>
                                   <input type="text" class="form-control" id="requestCode" name="request_code"
                                     placeholder="Verification Code" value="<?php echo $_GET['request_code_data']; ?>">
                                 <?php } else { ?>
@@ -773,6 +772,14 @@ if (
 
                                 <p class="text-muted">To verify your identity, please enter your password to successfully
                                   update your profile.</p>
+                              </div>
+                              <div class="mb-3">
+                                <div class="checkbox">
+                                  <label for="agreeTerms">
+                                    I agree to the <a href="#" data-toggle="modal"
+                                      data-target="#changeemailtermsModal">terms and conditions</a>
+                                  </label>
+                                </div>
                               </div>
 
                               <div class="form-group row">
@@ -831,12 +838,12 @@ if (
                             <hr>
                             <form style="width: 100%" action="indexes/update-profilepicture.php" method="post"
                               enctype="multipart/form-data">
-                              <?php if (isset($_GET['proferror'])) { ?>
+                              <?php if (isset ($_GET['proferror'])) { ?>
                                 <div class="alert alert-danger">
                                   <?php echo $_GET['proferror']; ?>
                                 </div>
                               <?php } ?>
-                              <?php if (isset($_GET['profsuccess'])) { ?>
+                              <?php if (isset ($_GET['profsuccess'])) { ?>
                                 <div class="alert alert-success">
                                   <?php echo $_GET['profsuccess']; ?>
                                 </div>
@@ -873,12 +880,12 @@ if (
                             <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                               Change Password</h3><br>
                             <hr>
-                            <?php if (isset($_GET['passerror'])) { ?>
+                            <?php if (isset ($_GET['passerror'])) { ?>
                               <div class="alert alert-danger">
                                 <?php echo $_GET['passerror']; ?>
                               </div>
                             <?php } ?>
-                            <?php if (isset($_GET['passsuccess'])) { ?>
+                            <?php if (isset ($_GET['passsuccess'])) { ?>
                               <div class="alert alert-success">
                                 <?php echo $_GET['passsuccess']; ?>
                               </div>
@@ -943,6 +950,166 @@ if (
       <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+
+
+    <!-- Modal for modifying profile information -->
+    <div class="modal fade" id="profiletermsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Terms and Conditions</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ol>
+              <li><strong>Introduction</strong><br>
+                By accessing or using the form provided by us, you agree to comply with and be bound by
+                these terms and conditions. If you do not agree to these terms and conditions, please do not use the form.
+              </li>
+              <li><strong>Modifications to Form</strong><br>
+                We reserves the right to modify, suspend, or discontinue the form, or any part thereof, at any time
+                without prior notice.
+              </li>
+              <li><strong>User Information</strong><br>
+                Users are responsible for providing accurate and up-to-date information when modifying their details. We
+                not liable for any inaccuracies or outdated information provided by the user.
+              </li>
+              <li><strong>Privacy and Security</strong><br>
+                We takes the privacy and security of user information seriously. User data collected through the form will
+                be handled in accordance with our Privacy Policy. By using the form, you consent to the collection, use,
+                and sharing of your information as described in the Privacy Policy.
+              </li>
+              <li><strong>Password Protection</strong><br>
+                Users are required to enter their password to verify their identity before making any modifications to
+                their information. Users are responsible for maintaining the confidentiality of their password and for any
+                activities that occur under their account.
+              </li>
+              <li><strong>Use of Information</strong><br>
+                The information provided by users will be used for the purposes of updating their details within the
+                system and for communication purposes related to their account.
+              </li>
+              <li><strong>Governing Law</strong><br>
+                These terms and conditions shall be governed by and construed in accordance with the laws of Republic Act
+                No. 10173, also known as the Data Privacy Act of 2012. Any disputes arising under these terms and
+                conditions shall be subject to the exclusive jurisdiction of the courts of authority.</li>
+            </ol>
+            <p>By using the form, you acknowledge that you have read, understood, and agree to be bound by these terms and
+              conditions.</p>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for modifying email address -->
+    <div class="modal fade" id="changeemailtermsModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Terms and Conditions</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ol>
+              <li>
+                <strong>Introduction</strong><br>
+                By initiating the process of changing your email address through the platform provided by us,
+                you agree to comply with and be bound by these terms and conditions. If you do not agree to these
+                terms and conditions, please do not proceed with the email address change process.
+              </li>
+
+              <li>
+                <strong>Request for Email Address Change:</strong><br>
+                <ol>
+                  <li>To initiate the process of changing your email address, you must send a request through the
+                    platform's designated procedure.</li>
+                  <li>Upon initiating the request, you will be prompted to input the new email address to which the
+                    request code will be sent.</li>
+                  <li>The request code will be sent to the provided new email address for verification purposes.</li>
+                </ol>
+              </li>
+
+              <li>
+                <strong>Verification Process:</strong><br>
+                <ol>
+                  <li>Upon receiving the request code at your new email address, you must retrieve the code and return to
+                    the platform to continue the process.</li>
+                  <li>You are required to enter the received request code accurately as part of the verification process.
+                  </li>
+                  <li>Additionally, you will be prompted to provide your account password to further verify your identity.
+                  </li>
+                </ol>
+              </li>
+
+              <li>
+                <strong>Confirmation and Completion:</strong><br>
+                <ol>
+                  <li>Once the request code and password have been successfully verified, your email address change
+                    request will be processed.</li>
+                  <li>You will receive confirmation of the email address change via the new email address provided.</li>
+                  <li>Your account information, including your login credentials, will be updated to reflect the new email
+                    address.</li>
+                </ol>
+              </li>
+
+              <li>
+                <strong>Responsibilities:</strong><br>
+                <ol>
+                  <li>You are solely responsible for ensuring the accuracy and security of the new email address provided
+                    during the email address change process.</li>
+                  <li>It is your responsibility to keep your account password confidential and to prevent unauthorized
+                    access to your account.</li>
+                  <li>Any unauthorized access or misuse of your account resulting from negligence in safeguarding your
+                    credentials shall be your sole responsibility.</li>
+                </ol>
+              </li>
+
+              <li>
+                <strong>Limitation of Liability:</strong><br>
+                <ol>
+                  <li>We shall not be liable for any loss or damage arising from unauthorized access to your account due
+                    to negligence on your part.</li>
+                  <li>We reserve the right to deny or delay processing any email address change request deemed suspicious
+                    or potentially fraudulent.</li>
+                </ol>
+              </li>
+
+              <li>
+                <strong>Governing Law:</strong><br>
+                <ol>
+                  <li>These terms and conditions shall be governed by and construed in accordance with the laws of
+                    [Jurisdiction], without regard to its conflict of law provisions.</li>
+                </ol>
+              </li>
+
+              <li>
+                <strong>Modification of Terms:</strong><br>
+                <ol>
+                  <li>We reserve the right to modify or update these terms and conditions at any time without prior
+                    notice.</li>
+                  <li>It is your responsibility to review these terms periodically for any changes.</li>
+                </ol>
+              </li>
+            </ol>
+            <p>By using the form, you acknowledge that you have read, understood, and agree to be bound by these terms and
+              conditions.</p>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

@@ -205,7 +205,7 @@
               <div class="icheck-primary">
                 <input type="checkbox" id="agreeTerms"  name="tandc">
                 <label for="agreeTerms">
-                  I agree to the <a href="#">terms and conditions</a>
+                  I agree to the <a href="#" data-toggle="modal" data-target="#termsModal">terms and conditions</a>
                 </label>
               </div>
             </div>
@@ -228,12 +228,70 @@
           </a>
         </div>-->
 
-        <a href="login-v2.php" class="text-center">I already have a membership</a>
+        <a href="login-v2.php" class="text-center">I already have a account</a>
       </div>
       <!-- /.form-box -->
     </div><!-- /.card -->
   </div>
   <!-- /.register-box -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Terms and Conditions</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ol>
+            <li><strong>Introduction</strong><br>
+              These Terms and Conditions govern your use of the registration form provided by us. By using this
+              registration form, you agree to comply with and be bound by these Terms and
+              Conditions. If you disagree with any part of these Terms and Conditions, you must not use this
+              registration form.
+            </li>
+            <li><strong>Registration Information</strong><br>
+              By filling out and submitting the registration form, you agree to provide accurate, current, and complete
+              information about yourself as prompted by the form. You also agree to maintain and promptly update this
+              information to keep it accurate, current, and complete.
+            </li>
+            <li><strong>Privacy</strong><br>
+              Your privacy is important to us. All information provided in the registration form will be handled in
+              accordance with our Privacy Policy. By using this registration form, you consent to the collection and use
+              of your information as described in our Privacy Policy.
+            </li>
+            <li><strong>Security</strong><br>
+              You are responsible for maintaining the confidentiality of any of your information and passwords
+              associated with the registration form. You agree not to share your password with anyone else or allow anyone else
+              to access your account. You are solely responsible for any activities that occur under your account.
+            </li>
+            <li><strong>Acceptable Use</strong><br>
+              You agree to use the registration form only for lawful purposes and in a manner consistent with these
+              Terms and Conditions. You agree not to use the registration form in any way that could damage, disable,
+              overburden, or impair our servers or networks, or interfere with any other party's use and enjoyment of
+              the registration form.
+            </li>
+            <li><strong>Modification of Terms</strong><br>
+              We reserve the right to modify these Terms and Conditions at any time without prior notice. Your continued
+              use of the registration form after any such modifications indicates your acceptance of the modified Terms
+              and Conditions. It is your responsibility to review these Terms and Conditions periodically for any
+              changes.
+            </li>
+          </ol>
+          <p>By using this registration form, you acknowledge that you have read, understood, and agree to be bound by
+            these Terms and Conditions.</p>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- jQuery -->
   <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
