@@ -653,7 +653,8 @@ if (
                               <div class="mb-3">
                                 <div class="checkbox">
                                   <label for="agreeTerms">
-                                    By submitting this form, you agree to our <a href="#" data-toggle="modal" data-target="#profiletermsModal">terms
+                                    By submitting this form, you agree to our <a href="#" data-toggle="modal"
+                                      data-target="#profiletermsModal">terms
                                       and conditions</a>
                                   </label>
                                 </div>
@@ -720,14 +721,16 @@ if (
                                 <!-- New email address input -->
                                 <label for="newEmail" class="fw-bold">New Email Address</label>
                                 <div class="input-group">
-                                  <?php if (isset ($_GET['new_email_data'])) { ?>
+                                  <?php if (empty ($_SESSION['new_email'])) { ?>
                                     <input type="email" class="form-control col-9 me-2" name="new_email"
                                       placeholder="New Email Address*" required
-                                      value="<?php echo $_GET['new_email_data']; ?>">
+                                      value="<?php echo isset ($_GET['new_email_data']) ? $_GET['new_email_data'] : ''; ?>">
                                   <?php } else { ?>
                                     <input type="email" class="form-control col-9 me-2" name="new_email"
-                                      placeholder="New Email Address*" required>
+                                      placeholder="New Email Address*" required
+                                      value="<?php echo $_SESSION['new_email']; ?>">
                                   <?php } ?>
+
                                   <button class="btn btn-primary mx-2" type="submit" name="send_code"
                                     value="send_request_code">Send Request Code</button>
                                 </div>
@@ -776,7 +779,7 @@ if (
                               <div class="mb-3">
                                 <div class="checkbox">
                                   <label for="agreeTerms">
-                                  By submitting this form, you agree to our <a href="#" data-toggle="modal"
+                                    By submitting this form, you agree to our <a href="#" data-toggle="modal"
                                       data-target="#changeemailtermsModal">terms and conditions</a>
                                   </label>
                                 </div>

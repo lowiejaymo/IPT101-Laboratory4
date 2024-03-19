@@ -60,7 +60,6 @@ if (isset($_POST['login'])) {
                         $_SESSION['Skills'] = $profile_row['Skills'];
                         $_SESSION['Notes'] = $profile_row['Notes'];
                         $_SESSION['profile_picture'] = $profile_row['profile_picture'];
-                        $_SESSION['new_email'] = $profile_row['new_email'];
 
                         header("Location: ../index.php");
                         exit();
