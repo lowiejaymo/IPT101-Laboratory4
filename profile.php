@@ -653,7 +653,7 @@ if (
                               <div class="mb-3">
                                 <div class="checkbox">
                                   <label for="agreeTerms">
-                                    I agree to the <a href="#" data-toggle="modal" data-target="#profiletermsModal">terms
+                                    By submitting this form, you agree to our <a href="#" data-toggle="modal" data-target="#profiletermsModal">terms
                                       and conditions</a>
                                   </label>
                                 </div>
@@ -776,7 +776,7 @@ if (
                               <div class="mb-3">
                                 <div class="checkbox">
                                   <label for="agreeTerms">
-                                    I agree to the <a href="#" data-toggle="modal"
+                                  By submitting this form, you agree to our <a href="#" data-toggle="modal"
                                       data-target="#changeemailtermsModal">terms and conditions</a>
                                   </label>
                                 </div>
