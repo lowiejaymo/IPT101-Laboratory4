@@ -31,7 +31,7 @@ if (isset($_POST['profile_password'])) {
         header("Location: ../profile.php?updateprofileerror=Lastname is required");
         exit();
     } elseif(empty($firstname)) {
-        header("Location: ../profile.php?updateprofileerror=Firstname is required");
+        header("Location: ../profile.php?u pdateprofileerror=Firstname is required");
         exit();
     } elseif (empty($uname)) {
         header("Location: ../profile.php?updateprofileerror=User Name is required");

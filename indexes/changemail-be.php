@@ -24,6 +24,12 @@ if (isset($_POST['change_email_password'])) {
     $code_input = 'request_code_data=' . $requestCode;
 
     // Check if new email is not empty or blank
+    if (empty($newEmail) || trim($newEmail) === "") {
+        header("Location: ../profile.php?requestcodeerror=New email address is empty");
+        exit();
+    }
+
+    // Check if new email is already exixting
     $checkNewEmailQuery = "SELECT * FROM user WHERE username = ? AND new_email = ?";
     $checkNewEmailStmt = mysqli_prepare($conn, $checkNewEmailQuery);
     mysqli_stmt_bind_param($checkNewEmailStmt, "ss", $username, $newEmail);
