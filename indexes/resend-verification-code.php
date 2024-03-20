@@ -89,29 +89,31 @@ function sendMail($email, $v_code)
     }
 }
 
+// Check if the 'resend' button is clicked
 if (isset($_POST['resend'])) {
+    // Get email from the form data or set it to an empty string
     $email = isset($_POST['email']) ? $_POST['email'] : '';
 
     // Generate a random 6-digit verification code
     $v_code = rand(100000, 999999);
 
-    // Update the user table with the new verification code
-    $sql = "UPDATE user SET verification_code = '$v_code' WHERE email = '$email'";
-    $result = mysqli_query($conn, $sql);
+    // Prepare SQL statement to update the user table with the new verification code
+    $sql = "UPDATE user SET verification_code = ? WHERE email = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "is", $v_code, $email);
+    $result = mysqli_stmt_execute($stmt);
 
+    // Check if the query was successful and the email was sent
     if ($result && sendMail($_POST['email'], $v_code)) {
         // Redirect with success message
         header("Location: ../createdsuccessfully.php?newsuccess=Your new Verification Code has been sent to your email.");
         exit();
     } else {
         // Redirect with error message
-        header("Location: ../createdsuccessfully.php?newerror=Your new Verification Code failed to sent to your email.");
+        header("Location: ../createdsuccessfully.php?newerror=Your new Verification Code failed to be sent to your email.");
         exit();
     }
 } else {
-    // Redirect to a relevant page if the 'resend_code' parameter is not set
     header("Location: ../createdsuccessfully.php");
     exit();
 }
-
-// && sendMail($_POST['email'], $v_code)

@@ -15,14 +15,20 @@ if (isset($_POST['login'])) {
     $pass = validate($_POST['password']); 
 
     if (empty($email)) {
+        //checks if the email input was empty
         header("Location: ../login-v2.php?error=Email is required");
         exit();
     } elseif (empty($pass)) {
+        //checks if the password input was empty
         header("Location: ../login-v2.php?error=Password is required");
         exit();
     } else {
-        $sql = "SELECT * FROM user WHERE Email='$email'";
-        $result = mysqli_query($conn, $sql);
+        // Prepare SQL statement to fetch user data by email
+        $sql = "SELECT * FROM user WHERE Email=?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
 
         if (mysqli_num_rows($result) === 1) { 
             $row = mysqli_fetch_assoc($result);
@@ -31,9 +37,12 @@ if (isset($_POST['login'])) {
             if (password_verify($pass, $row['password'])) {
                 // Check if the account is verified
                 if ($row['is_verified'] == 1) {
-                    // Fetch user profile data
-                    $sql2 = "SELECT * FROM user_profile WHERE user_id='" . $row['user_id'] . "'";
-                    $result2 = mysqli_query($conn, $sql2);
+                    // Prepare SQL statement to fetch user profile data
+                    $sql2 = "SELECT * FROM user_profile WHERE user_id=?";
+                    $stmt2 = mysqli_prepare($conn, $sql2);
+                    mysqli_stmt_bind_param($stmt2, "i", $row['user_id']);
+                    mysqli_stmt_execute($stmt2);
+                    $result2 = mysqli_stmt_get_result($stmt2);
                     
                     if ($profile_row = mysqli_fetch_assoc($result2)) {
                         // Populate session variables
@@ -68,18 +77,20 @@ if (isset($_POST['login'])) {
                         exit();
                     }
                 } else {
-                    // Account is not verified
-                $_SESSION['verify'] = true;
-                $_SESSION['username'] = $row['username'];
-                $_SESSION['email'] = $row['Email'];
+                    // Account is not verified, redirect user to verification page
+                    $_SESSION['verify'] = true;
+                    $_SESSION['username'] = $row['username'];
+                    $_SESSION['email'] = $row['Email'];
                     header("Location: ../createdsuccessfully.php?error=Your account is not yet verified, please check your registered email and provide the valid verification code.");
-                    exit;
+                    exit();
                 }
             } else {
+                //if the password is not  correct then show error message and load the login form again
                 header("Location: ../login-v2.php?error=Incorrect Email or Password");
                 exit();
             }
         } else {
+            //if the user is not existing in the database
             header("Location: ../login-v2.php?error=User not found");
             exit();
         }

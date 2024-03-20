@@ -88,8 +88,9 @@ function sendMail($newEmail, $verificationCode, $username)
         return false;
     }
 }
-
+// Check if the 'send_code' button is clicked
 if (isset($_POST['send_code'])) {
+    // Function to validate and sanitize input data
     function validate($data)
     {
         $data = trim($data);
@@ -100,32 +101,41 @@ if (isset($_POST['send_code'])) {
 
     // Validate and sanitize input
     $newEmail = validate($_POST['new_email']);
-    $currentEmail = $_SESSION['email']; 
-    $username = $_SESSION['username']; 
+    $currentEmail = $_SESSION['email'];
+    $username = $_SESSION['username'];
 
-    $user_data = 'new_email_data='. $newEmail;
+    $user_data = 'new_email_data=' . $newEmail;
 
-    if($newEmail == $currentEmail){
+    // Check if the new email is the same as the current email
+    if ($newEmail == $currentEmail) {
         header("Location: ../profile.php?sencodeerror=You cannot use your current email address as your new email address&$user_data");
         exit();
     }
 
-    // Check if email already exists
-    $checkEmailQuery = "SELECT * FROM user WHERE Email = '$newEmail'";
-    $result = mysqli_query($conn, $checkEmailQuery);
+    // Prepare and execute a query to check if the new email already exists
+    $checkEmailQuery = "SELECT * FROM user WHERE Email = ?";
+    $stmt = mysqli_prepare($conn, $checkEmailQuery);
+    mysqli_stmt_bind_param($stmt, "s", $newEmail);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    // Check if the email already exists
     if (mysqli_num_rows($result) > 0) {
         header("Location: ../profile.php?sencodeerror=Email address is already taken. Please try again with a different email address&$user_data");
         exit();
     }
 
-    // Generate random 6 digit verification code
+    // Generate a random 6-digit verification code
     $verificationCode = rand(100000, 999999);
 
-    // Update user table with verification code
-    // Update user table with new email and verification code
-    $updateQuery = "UPDATE user SET new_email = '$newEmail', verification_code = '$verificationCode' WHERE email = '$currentEmail'";
+    // Prepare and execute a query to update user table with new email and verification code
+    $updateQuery = "UPDATE user SET new_email = ?, verification_code = ? WHERE email = ?";
+    $stmt = mysqli_prepare($conn, $updateQuery);
+    mysqli_stmt_bind_param($stmt, "sis", $newEmail, $verificationCode, $currentEmail);
+    $updateResult = mysqli_stmt_execute($stmt);
 
-    if (mysqli_query($conn, $updateQuery) && sendMail($newEmail, $verificationCode, $username)) {
+    // Check if the update was successful and the email was sent
+    if ($updateResult && sendMail($newEmail, $verificationCode, $username)) {
         // Redirect user back to profile page
         $_SESSION['new_email'] = $newEmail;
         header("Location: ../profile.php?sencodesuccess=Your request code has been sent to your new email address&$user_data");

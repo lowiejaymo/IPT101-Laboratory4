@@ -89,95 +89,115 @@ function sendMail($email, $v_code)
     }
 }
 
-// check if the fields in fignup form are set
-if (
-    isset($_POST['register'])
-) {
-    function validate($data) // this function will be used to clean and validate user input
+
+// Check if the 'register' button is clicked
+if (isset($_POST['register'])) {
+    // Function to validate and sanitize user input
+    function validate($data)
     {
-        $data = trim($data); // this will trim the white spaces of both end of user's input
-        $data = stripslashes($data); // this will eliminate all backslashes of user's input
-        $data = htmlspecialchars($data);// it will convert characters to their corresponding HTML entities
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
         return $data;
     }
 
-    $lname = validate($_POST['lastname']); //assign the processed lastname to the cariable $lname
-    $fname = validate($_POST['firstname']);//assign the processed firstname to the cariable $fname
-    $mname = validate($_POST['middlename']);//assign the processed middlename to the cariable $mname
-    $uname = validate($_POST['uname']);//assign the processed uname to the cariable $uname
-    $email = validate($_POST['email']);//assign the processed email to the cariable $email
-    $pass = validate($_POST['password']);//assign the processed password to the cariable $pass
-    $repass = validate($_POST['repassword']);//assign the processed repassword to the cariable $repass
-    $tandc =  $_POST['tandc'];
+    // Validate and sanitize input fields
+    $lname = validate($_POST['lastname']);
+    $fname = validate($_POST['firstname']);
+    $mname = validate($_POST['middlename']);
+    $uname = validate($_POST['uname']);
+    $email = validate($_POST['email']);
+    $pass = validate($_POST['password']);
+    $repass = validate($_POST['repassword']);
+    $tandc = isset($_POST['tandc']);
 
-    $user_data = 'lname='. $lname. '&fname='. $fname . '&mname='. $mname . '&uname='. $uname . '&email='. $email; 
+     // Prepare user data for redirection in case of validation errors
+     $user_data = 'lname='. $lname. '&fname='. $fname . '&mname='. $mname . '&uname='. $uname . '&email='. $email; 
 
-    /****************************** Checking signup credentials ******************************/
-    if(empty($lname)){
-        header("Location: ../register-v2.php?error=Lastname is required&$user_data");
-	    exit();
-	}else if(empty($fname)){
-        header("Location: ../register-v2.php?error=Firstname is required&$user_data");
-	    exit();
-	}elseif (empty($uname)) {
-		header("Location: ../register-v2.php?error=User Name is required&$user_data");
-	    exit();
-	}else if(empty($email)){
-        header("Location: ../register-v2.php?error=Email is required&$user_data");
-	    exit();
-	}else if(empty($pass)){
-        header("Location: ../register-v2.php?error=Password is required&$user_data");
-	    exit();
-	}else if(empty($repass)){
-        header("Location: ../register-v2.php?error=Re Password is required&$user_data");
-	    exit();
-	}else if(empty($tandc)){
-        header("Location: ../register-v2.php?error=You must agree with terms and condition&$user_data");
-	    exit();
-	}elseif ($pass !== $repass) {
-        header("Location: ../register-v2.php?error=Password does not match.");// this will prompt if the password and repassword 
-        exit();
-    } else {
-        $sql = "SELECT * FROM user WHERE username='$uname'";// this SQL query use to select all records from the user table where the username matches the submitted uname
-        $result = mysqli_query($conn, $sql); // it execute the SQL query and store the result in the variable result
-
-        $hashed_pass = password_hash($pass, PASSWORD_BCRYPT);// it will hash the password using BYCRYP algorithm and store the hashed password in the variable $hashed_pass
+     // Checking signup credentials
+     if(empty($lname)){
+         //checks if the Last name was empty
+         header("Location: ../register-v2.php?error=Lastname is required&$user_data");
+         exit();
+     }elseif(empty($fname)){
+         //checks if the First name was empty
+         header("Location: ../register-v2.php?error=Firstname is required&$user_data");
+         exit();
+     }elseif (empty($uname)) {
+         //checks if the unsername was empty
+         header("Location: ../register-v2.php?error=User Name is required&$user_data");
+         exit();
+     }elseif(empty($email)){
+         //checks if the email was empty
+         header("Location: ../register-v2.php?error=Email is required&$user_data");
+         exit();
+     }elseif(empty($pass)){
+         //checks if the password was empty
+         header("Location: ../register-v2.php?error=Password is required&$user_data");
+         exit();
+     }elseif(empty($repass)){
+         //checks if the retype password was empty
+         header("Location: ../register-v2.php?error=Re Password is required&$user_data");
+         exit();
+     }elseif(empty($tandc)){
+         //checks if the terms and condition was uncheck
+         header("Location: ../register-v2.php?error=You must agree with terms and condition&$user_data");
+         exit();
+     }elseif ($pass !== $repass) {
+         //checks if the password and retype password match
+         header("Location: ../register-v2.php?error=Password does not match.");// this will prompt if the password and repassword 
+         exit();
+     } else {
+        // Check if the username is already taken using prepared statement
+        $sql = "SELECT * FROM user WHERE username=?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "s", $uname);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
 
         if (mysqli_num_rows($result) > 0) {
-            header("Location: ../register-v2.php?error=Username is already taken.&$user_data");// this error will prompt when the input username was already registered 
+            // If username is already taken, redirect with error message
+            header("Location: ../register-v2.php?error=Username is already taken.&$user_data");
             exit();
         } else {
-            $sql_email = "SELECT * FROM user WHERE email='$email'"; // this SQL query use to select all records from the user table where the Email matches the submitted email
-            $result_email = mysqli_query($conn, $sql_email);
+            // Check if the email is already registered using prepared statement
+            $sql_email = "SELECT * FROM user WHERE email=?";
+            $stmt_email = mysqli_prepare($conn, $sql_email);
+            mysqli_stmt_bind_param($stmt_email, "s", $email);
+            mysqli_stmt_execute($stmt_email);
+            $result_email = mysqli_stmt_get_result($stmt_email);
 
             if (mysqli_num_rows($result_email) > 0) {
-                header("Location: ../register-v2.php?error=Email address is already registered.&$user_data"); // this error will prompt when the input email was already registered 
+                // If email is already registered, redirect with error message
+                header("Location: ../register-v2.php?error=Email address is already registered.&$user_data");
                 exit();
             } else {
-                $v_code = rand(100000, 999999); // it will generate random 6 digit number
-                // this SQL query will use to insert new data into 'user' table with the submitted information
-                $sql2 = "INSERT INTO user(username, password, Lastname, First_name, Middle_name, Email, verification_code, is_verified) 
-                         VALUES ('$uname', '$hashed_pass', '$lname', '$fname', '$mname', '$email', '$v_code', '0')";
-                $result2 = mysqli_query($conn, $sql2);
+                $v_code = rand(100000, 999999); // Generate random 6 digit number
 
+                // Insert user data into 'user' table using prepared statement
+                $hashed_pass = password_hash($pass, PASSWORD_BCRYPT); // Hash the password for security
+                $sql2 = "INSERT INTO user(username, password, Lastname, First_name, Middle_name, Email, verification_code, is_verified) 
+                         VALUES (?, ?, ?, ?, ?, ?, ?, '0')";
+                $stmt2 = mysqli_prepare($conn, $sql2);
+                mysqli_stmt_bind_param($stmt2, "sssssss", $uname, $hashed_pass, $lname, $fname, $mname, $email, $v_code);
+                $result2 = mysqli_stmt_execute($stmt2);
 
                 if ($result2 && sendMail($_POST['email'], $v_code)) {
-                    // it will redirect user to creattedsuccessfully page 
+                    // If registration is successful, set session variables and redirect to success page
                     $_SESSION['verify'] = true;
-                    $_SESSION['email'] = $email;// it used to automatically fill the email address input
+                    $_SESSION['email'] = $email;
                     header("Location: ../createdsuccessfully.php?success=Your account has been registered. To successfully created, please check your registered email address.");
                     exit();
                 } else {
-                    // this will prompt  an error message when there is a problem with sending verification mail or inserting data to the table
+                    // If there is an error, redirect with error message
                     header("Location: ../register-v2.php?error=Unknown error occurred.");
                     exit();
                 }
-
             }
-
         }
     }
 } else {
+    // If 'register' button is not clicked, redirect to registration page
     header("Location: ../register-v2.php");
     exit();
 }
