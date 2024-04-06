@@ -13,13 +13,15 @@
     <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
       <div class="image">
         <a href="profile.php">
-          <img class="rounded-image" src="profile-picture/<?php echo $_SESSION['profile_picture']; ?>?<?php echo time(); ?>"
-            alt="User profile picture">
+          <img class="rounded-image"
+            src="profile-picture/<?php echo $_SESSION['profile_picture']; ?>?<?php echo time(); ?>"
+            alt="User profile picture" style="height: 2.5rem; width: 2.5rem; border-radius: 50%;">
         </a>
       </div>
       <div class="info ml-2">
         <a href="profile.php" class="d-block">
-          @<?php echo $_SESSION['username']; ?>
+          @
+          <?php echo $_SESSION['username']; ?>
         </a>
       </div>
     </div>
@@ -49,8 +51,8 @@
             </p>
           </a>
         </li>
-        
-          <!-- <li class="nav-item">
+
+        <!-- <li class="nav-item">
             <a href="../widgets.php" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>

@@ -165,7 +165,7 @@ if (
                       <li class="list-group-item">
                         <!-- Displaying Phone Number -->
                         <b>Phone Number</b>
-                        <?php if ($_SESSION['phone_number'] != '0'): ?>
+                        <?php if ($_SESSION['phone_number']): ?>
                           <a class="float-right">
                             <?php echo $_SESSION['phone_number']; ?>
                           </a>
@@ -536,7 +536,7 @@ if (
                                   <input type="text" class="form-control" id="inputName" name="phone_number"
                                     pattern="09[0-9]{9}" title="Phone number must start with 09 and have 11 digits"
                                     placeholder="09123456789*"
-                                    value="<?php echo isset ($_SESSION['phone_number']) && $_SESSION['phone_number'] !== '0' ? $_SESSION['phone_number'] : ''; ?>">
+                                    value="<?php echo isset ($_SESSION['phone_number']) && $_SESSION['phone_number']? $_SESSION['phone_number'] : ''; ?>">
                                 </div>
                               </div>
                               <!-- birthdate input -->

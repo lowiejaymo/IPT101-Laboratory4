@@ -23,20 +23,24 @@ if (isset($_POST['profile_password'])) {
     $userid = $_SESSION['user_id']; // Get user ID from session or database
     $stored_password = $_SESSION['password']; // Make sure to replace with actual session variable
 
-    // Verify the entered password
     if (empty($password)) {
+        // checking if the password input was empty
         header("Location: ../profile.php?updateprofileerror=Password is required");
         exit();
     } elseif(empty($lastname)) {
+        // checking if the lastname input was empty
         header("Location: ../profile.php?updateprofileerror=Lastname is required");
         exit();
     } elseif(empty($firstname)) {
+        // checking if the firstname input was empty
         header("Location: ../profile.php?u pdateprofileerror=Firstname is required");
         exit();
     } elseif (empty($uname)) {
+        // checking if the uname input was empty
         header("Location: ../profile.php?updateprofileerror=User Name is required");
         exit();
     } elseif (!password_verify($_POST['profile_password'], $stored_password)) {
+        // checking if the input password was matched in the database
         header("Location: ../profile.php?updateprofileerror=Password is incorrect.");
         exit();
     } else {
@@ -60,7 +64,7 @@ if (isset($_POST['profile_password'])) {
 
         // Bind parameters
         $stmt->bind_param(
-            "isssssssissssi",
+            "ssssssssissssi",
             $_POST['phone_number'],
             $_POST['birthday'],
             $_POST['gender'],
